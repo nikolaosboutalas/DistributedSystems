@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+task masterJar(type: Jar) {
+    archiveBaseName = "master"
+    manifest {
+        attributes 'Main-Class': 'master.Master'
+    }
+    with jar
+}
+
+task clientJar(type: Jar) {
+    archiveBaseName = "client"
+    manifest {
+        attributes 'Main-Class': 'client.Client'
+    }
+    with jar
+}
+
+task workerJar(type: Jar) {
+    archiveBaseName = "worker"
+    manifest {
+        attributes 'Main-Class': 'worker.Worker'
+    }
+    with jar
+}
+
+jar {
+    dependsOn 'masterJar'
+    dependsOn 'workerJar'
+    dependsOn 'clientJar'
+}
