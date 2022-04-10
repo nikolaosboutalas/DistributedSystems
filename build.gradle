@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'me.boutalas'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+task brokerJar(type: Jar) {
+    baseName("brokerJar")
+    manifest {
+        attributes 'Main-Class': 'me.boutalas.distributedsystems.BrokerInterface'
+    }
+    with jar
+}
+
+task clientJar(type: Jar) {
+    baseName("clientJar")
+    manifest {
+        attributes 'Main-Class': 'me.boutalas.distributedsystems.ClientInterface'
+    }
+    with jar
+}
+
+jar {
+    dependsOn 'clientJar'
+    dependsOn 'brokerJar'
+}
